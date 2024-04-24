@@ -13,6 +13,7 @@ base {
 repositories {
 	maven { url = "https://maven.terraformersmc.com/releases" }
 	maven { url = "https://maven.isxander.dev/releases" }
+	maven { url = "https://maven.resourcefulbees.com/repository/maven-public/" }
 }
 
 loom {
@@ -29,9 +30,11 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation("com.terraformersmc:modmenu:${project.modMenuVersion}")
+	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
 
-	modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:${yaclVersion}")
+	modImplementation "dev.isxander.yacl:yet-another-config-lib-fabric:${yacl_version}"
+
+	modImplementation "com.teamresourceful.resourcefullib:resourcefullib-fabric-${resourceful_lib_version}"
 }
 
 processResources {

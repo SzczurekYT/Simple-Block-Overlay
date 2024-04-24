@@ -20,21 +20,23 @@ public class ColorUtil {
     }
 
     public static void setLineColor(Args args, int offset) {
-        float red, green, blue;
+        float red, green, blue, alpha;
         if (SimpleBlockOverlayConfig.CONFIG.instance().chroma) {
             Color color = ColorUtil.rainbow();
             red = color.getRed();
             green = color.getGreen();
             blue = color.getBlue();
+            alpha = SimpleBlockOverlayConfig.CONFIG.instance().alpha;
         } else {
-            red = SimpleBlockOverlayConfig.CONFIG.instance().red;
-            green = SimpleBlockOverlayConfig.CONFIG.instance().green;
-            blue = SimpleBlockOverlayConfig.CONFIG.instance().blue;
+            red = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getRed();
+            green = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getGreen();
+            blue = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getBlue();
+            alpha = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getAlpha();
         }
         args.set(6 - offset, red / 255F);
         args.set(7 - offset, green / 255F);
         args.set(8 - offset, blue / 255F);
-        args.set(9 - offset, SimpleBlockOverlayConfig.CONFIG.instance().alpha / 255F);
+        args.set(9 - offset, alpha / 255F);
     }
 }
 
