@@ -1,6 +1,7 @@
 package dev.microcontrollers.simpleblockoverlay.config;
 
 import dev.isxander.yacl3.api.*;
+import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.api.controller.FloatSliderControllerBuilder;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
@@ -26,6 +27,7 @@ public class SimpleBlockOverlayConfig {
     @SerialEntry public float saturation = 1F;
     @SerialEntry public float brightness = 1F;
     @SerialEntry public float speed = 0.25F;
+    @SerialEntry public boolean alwaysRenderOutline = false;
 
     @SuppressWarnings("deprecation")
     public static Screen configScreen(Screen parent) {
@@ -92,6 +94,18 @@ public class SimpleBlockOverlayConfig {
                                             .range(0F, 1F)
                                             .step(0.1F))
                                     .build())
+                                .build())
+
+                        // Misc
+
+                        .group(OptionGroup.createBuilder()
+                                .name(Text.literal("Misc"))
+                                .option(Option.createBuilder(boolean.class)
+                                        .name(Text.literal("Always render block overlay"))
+                                        .description(OptionDescription.of(Text.literal("Always renders the outline, ignoring some checks")))
+                                        .binding(false, () -> config.alwaysRenderOutline, newVal -> config.alwaysRenderOutline = newVal)
+                                        .controller(BooleanControllerBuilder::create)
+                                        .build())
                                 .build())
                         .build()
         ))).generateScreen(parent);
