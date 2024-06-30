@@ -19,24 +19,21 @@ public class ColorUtil {
         return Color.getHSBColor((float) (rainbowState / 360.0F), SimpleBlockOverlayConfig.CONFIG.instance().saturation, SimpleBlockOverlayConfig.CONFIG.instance().brightness);
     }
 
-    public static void setLineColor(Args args, int offset) {
-        float red, green, blue, alpha;
+    public static Color getColor() {
         if (SimpleBlockOverlayConfig.CONFIG.instance().chroma) {
             Color color = ColorUtil.rainbow();
-            red = color.getRed();
-            green = color.getGreen();
-            blue = color.getBlue();
-            alpha = SimpleBlockOverlayConfig.CONFIG.instance().alpha;
+            return new Color( color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, SimpleBlockOverlayConfig.CONFIG.instance().alpha / 255F);
         } else {
-            red = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getRed();
-            green = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getGreen();
-            blue = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getBlue();
-            alpha = SimpleBlockOverlayConfig.CONFIG.instance().solidColor.getAlpha();
+            return SimpleBlockOverlayConfig.CONFIG.instance().solidColor;
         }
-        args.set(6 - offset, red / 255F);
-        args.set(7 - offset, green / 255F);
-        args.set(8 - offset, blue / 255F);
-        args.set(9 - offset, alpha / 255F);
+    }
+
+    public static void setLineColor(Args args, int offset) {
+        Color color = getColor();
+        args.set(6 - offset, color.getRed() / 255F);
+        args.set(7 - offset,  color.getGreen() / 255F);
+        args.set(8 - offset, color.getBlue() / 255F);
+        args.set(9 - offset, color.getAlpha() / 255F);
     }
 }
 
